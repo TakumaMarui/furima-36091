@@ -2,18 +2,17 @@
 
 ## users テーブル
 
-| Column              | Type    | Options                   |
-| ------------------- | ------- | ------------------------- |
-| nickname            | string  | null: false               |
-| email               | string  | null: false, unique :true |
-| encrypted_password  | string  | null: false               |
-| family_name         | string  | null: false               |
-| first_name          | string  | null: false               |
-| family_name_reading | string  | null: false               |
-| first_name_reading  | string  | null: false               |
-| birthday_year_id    | integer | null: false               |
-| birthday_month_id   | integer | null: false               |
-| birthday_day_id     | integer | null: false               |
+| Column              | Type   | Options                   |
+| ------------------- | ------ | ------------------------- |
+| nickname            | string | null: false               |
+| email               | string | null: false, unique :true |
+| encrypted_password  | string | null: false               |
+| family_name         | string | null: false               |
+| first_name          | string | null: false               |
+| family_name_reading | string | null: false               |
+| first_name_reading  | string | null: false               |
+| birthday            | date   | null: false               |
+
 
 ### Association
 
@@ -32,7 +31,7 @@
 | prefecture_id    | integer    | null: false       |
 | shipping_days_id | integer    | null: false       |
 | price            | integer    | null: false       |
-| user_id          | references | foreign_key: true |
+| user             | references | foreign_key: true |
 
 ### Association
 
@@ -41,10 +40,10 @@
 
 ## purchases テーブル
 
-| Column  | Type       | Options           |
-| ------- | ---------- | ----------------- |
-| user_id | references | foreign_key: true |
-| item_id | references | foreign_key: true |
+| Column | Type       | Options           |
+| ------ | ---------- | ----------------- |
+| user   | references | foreign_key: true |
+| item   | references | foreign_key: true |
 
 ### Association
 
@@ -62,7 +61,7 @@
 | house_number  | string      | null: false       |
 | building_name | string      |                   |
 | phone_number  | string      | null: false       |
-| purchase_id   | references  | foreign_key: true |
+| purchase      | references  | foreign_key: true |
 
 ### Association
 
