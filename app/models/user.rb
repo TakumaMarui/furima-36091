@@ -11,7 +11,7 @@ class User < ApplicationRecord
     validates :family_name
     validates :first_name
   end
-  with_options presence: true, format: { with: /\A[\p{katakana}\p{blank}ー－]+\z/ } do
+  with_options presence: true, format: { with: /\A[ァ-ヶー－]+\z/ } do
     validates :family_name_reading
     validates :first_name_reading
   end

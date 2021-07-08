@@ -38,9 +38,15 @@ RSpec.describe User, type: :model do
       @user.valid?
       expect(@user.errors.full_messages).to include("Password is too short (minimum is 6 characters)")
     end
-    it "パスワードは、半角英数字混合での入力が必須であること" do
+    it "パスワードは、半角数字のみだと登録できないこと" do
       @user.password = '123456'
       @user.password_confirmation = '123456'
+      @user.valid?
+      expect(@user.errors.full_messages).to include("Password is invalid")
+    end
+    it "パスワードは、半角英字のみだと登録できないこと" do
+      @user.password = 'aaaaaa'
+      @user.password_confirmation = 'aaaaaa'
       @user.valid?
       expect(@user.errors.full_messages).to include("Password is invalid")
     end
@@ -87,6 +93,16 @@ RSpec.describe User, type: :model do
     end
     it "お名前カナ(全角)の名前は、全角（カタカナ）での入力が必須であること" do
       @user.first_name_reading = 'あ'
+      @user.valid?
+      expect(@user.errors.full_messages).to include("First name reading is invalid")
+    end
+    it "お名前カナ(全角)の名字は、半角（カタカナ）だと登録できないこと" do
+      @user.family_name_reading = 'ｱ'
+      @user.valid?
+      expect(@user.errors.full_messages).to include("Family name reading is invalid")
+    end
+    it "お名前カナ(全角)の名前は、半角（カタカナ）だと登録できないこと" do
+      @user.first_name_reading = 'ｱ'
       @user.valid?
       expect(@user.errors.full_messages).to include("First name reading is invalid")
     end
