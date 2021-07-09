@@ -54,13 +54,28 @@ RSpec.describe Item, type: :model do
       @item.valid?
       expect(@item.errors.full_messages).to include("Price can't be blank")
     end
-    it "priceが300~9,999,999以外では保存できないこと" do
-      @item.price = "0"
+    it "priceが299以下では保存できないこと" do
+      @item.price = "299"
       @item.valid?
       expect(@item.errors.full_messages).to include("Price is not included in the list")
     end
-    it "priceが半角数字以外では保存できないこと" do
+    it "priceが10,000,000以上では保存できないこと" do
+      @item.price = "10000000"
+      @item.valid?
+      expect(@item.errors.full_messages).to include("Price is not included in the list")
+    end
+    it "priceが全角数字では保存できないこと" do
       @item.price = "３００"
+      @item.valid?
+      expect(@item.errors.full_messages).to include("Price is not a number")
+    end
+    it "priceが半角英数字混合では保存できないこと" do
+      @item.price = "300a"
+      @item.valid?
+      expect(@item.errors.full_messages).to include("Price is not a number")
+    end
+    it "priceが半角英語だけでは保存できないこと" do
+      @item.price = "aaaa"
       @item.valid?
       expect(@item.errors.full_messages).to include("Price is not a number")
     end
