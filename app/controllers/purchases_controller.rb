@@ -3,9 +3,7 @@ class PurchasesController < ApplicationController
   before_action :set_item, only: [:index, :create]
   def index
     @purchase_residence = PurchaseResidence.new
-    if @item.purchase.present?
-      redirect_to root_path
-    elsif @item.user.id == current_user.id
+    if @item.purchase.present? || @item.user.id == current_user.id
       redirect_to root_path
     end
   end
